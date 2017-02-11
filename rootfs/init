@@ -1,0 +1,17 @@
+#!/bin/sh
+
+CONFIG_FILE='/kafka/kafka-mesos.properties'
+
+: ${STORAGE:-zk:/mesos-kafka-scheduler} && \
+sed -i "s#XXX-STORAGE-XXX#${STORAGE}#" ${CONFIG_FILE}
+
+: ${MASTER:-master:5050} && \
+sed -i "s#XXX-MASTER-XXX#${MASTER}#" ${CONFIG_FILE}
+
+: ${ZK:-master:2181/chroot} && \
+sed -i "s#XXX-ZK-XXX#${ZK}#" ${CONFIG_FILE}
+
+: ${API:-http://192.168.3.5:7000} && \
+sed -i "s#XXX-API-XXX#${API}#" ${CONFIG_FILE}
+
+exec /kafka/kafka-mesos.sh "$@"
