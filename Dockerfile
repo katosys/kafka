@@ -29,4 +29,4 @@ ADD rootfs /
 #------------------------------------------------------------------------------
 
 WORKDIR /kafka
-ENTRYPOINT ["/init"]
+ENTRYPOINT ["/bin/sh"]
