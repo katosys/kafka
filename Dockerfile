@@ -19,8 +19,14 @@ RUN apk --no-cache add -U -t dev git bash openjdk8 \
     && rm -rf /usr/lib/ruby/gems/*/cache/* /var/cache/apk/*
 
 #------------------------------------------------------------------------------
+# Populate root file system:
+#------------------------------------------------------------------------------
+
+ADD rootfs /
+
+#------------------------------------------------------------------------------
 # Expose ports and entrypoint:
 #------------------------------------------------------------------------------
 
 WORKDIR /kafka
-ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT ["/init"]
