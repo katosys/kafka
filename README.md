@@ -26,3 +26,16 @@ quay.io/kato/kafka scheduler
 ./kafka-mesos.sh broker list
 ./kafka-mesos.sh broker start 0
 ```
+
+Teardown the framework:
+```
+curl -H "Content-Type: application/json" -X POST \
+-d 'frameworkId=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee-ffff' \
+-v -L http://master:5050/teardown
+```
+
+Purge ZK state:
+```
+sudo rkt enter $(rkt list | awk '/zookeeper/ {print $1}') \
+/opt/zookeeper/bin/zkCli.sh -server 172.17.8.11:2181 rmr /kafka-mesos
+```
