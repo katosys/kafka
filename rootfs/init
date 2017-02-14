@@ -2,6 +2,10 @@
 
 CONFIG_FILE='/kafka/kafka-mesos.properties'
 
+#------------------------------------------------------------------------------
+# Variable interpolation:
+#------------------------------------------------------------------------------
+
 : ${STORAGE:-zk:/mesos-kafka-scheduler} && \
 sed -i "s#XXX-STORAGE-XXX#${STORAGE}#" ${CONFIG_FILE}
 
@@ -14,4 +18,9 @@ sed -i "s#XXX-ZK-XXX#${ZK}#" ${CONFIG_FILE}
 : ${API:-http://192.168.3.5:7000} && \
 sed -i "s#XXX-API-XXX#${API}#" ${CONFIG_FILE}
 
-exec /kafka/kafka-mesos.sh "$@"
+#------------------------------------------------------------------------------
+# Run Kafka:
+#------------------------------------------------------------------------------
+
+/usr/glibc-compat/sbin/ldconfig \
+&& exec /kafka/kafka-mesos.sh "$@"
