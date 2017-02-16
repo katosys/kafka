@@ -46,7 +46,7 @@ RUN apk add -U --no-cache -t dev curl && mkdir /opt \
 # Install Mesos Kafka:
 #------------------------------------------------------------------------------
 
-RUN apk --no-cache add -U -t dev git && apk add --no-cache bash \
+RUN apk --no-cache add -U -t dev git && apk add --no-cache bash ncurses \
     && cd /tmp && git clone https://github.com/mesos/kafka && cd kafka \
     && git fetch origin pull/281/head:pr-281 && git checkout pr-281 \
     && ./gradlew -x test jar && ./gradlew downloadKafka \
