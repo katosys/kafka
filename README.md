@@ -18,6 +18,7 @@ quay.io/kato/kafka scheduler
 Add a broker:
 ```
 ./kafka-mesos.sh broker add 0 \
+--java-cmd "unset LD_LIBRARY_PATH && /usr/glibc-compat/sbin/ldconfig && java" \
 --jvm-options '-XX:+PrintCommandLineFlags -verbose:class' \
 --container-type mesos \
 --container-image quay.io/kato/kafka \
