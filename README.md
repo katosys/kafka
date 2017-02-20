@@ -17,12 +17,18 @@ quay.io/kato/kafka scheduler
 
 Add a broker:
 ```
+docker exec -it kafka-mesos /bin/bash
 ./kafka-mesos.sh broker add 0 \
 --java-cmd "unset LD_LIBRARY_PATH && /usr/glibc-compat/sbin/ldconfig && java" \
---jvm-options '-XX:+PrintCommandLineFlags -verbose:class' \
 --container-type mesos \
 --container-image quay.io/kato/kafka \
 --container-mounts /opt/lib:/opt/lib:ro
+```
+
+Publish and read it back:
+```
+echo "test" | kafkacat -P -b "worker-1:31000" -t testTopic -p 0
+kafkacat -C -b "worker-1:31000" -t testTopic -p 0 -e
 ```
 
 Start the broker:
