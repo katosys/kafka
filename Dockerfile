@@ -60,9 +60,11 @@ COPY rootfs /
 
 RUN apk --no-cache add -U -t dev gcc musl-dev make coreutils \
     && apk --no-cache add -U -t dev librdkafka-dev --repository \
-    http://dl-3.alpinelinux.org/alpine/edge/testing && cd /tmp && git clone \
-    https://github.com/edenhill/kafkacat.git && cd kafkacat && git checkout \
-    1.3.0 -b build && ./configure && make && mv kafkacat /usr/bin && rm -rf /tmp/*
+    http://dl-3.alpinelinux.org/alpine/edge/testing && apk --no-cache add -U \
+    --repository http://dl-3.alpinelinux.org/alpine/edge/testing librdkafka \
+    && cd /tmp && git clone https://github.com/edenhill/kafkacat.git \
+    && cd kafkacat && git checkout 1.3.0 -b build && ./configure && make \
+    && mv kafkacat /usr/bin && rm -rf /tmp/*
 
 #------------------------------------------------------------------------------
 # Strip JDK into JRE:
